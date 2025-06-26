@@ -15,8 +15,7 @@ pipeline {
         stage('Checkout SCM') {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/your-username/terraform-aws-vpc-ec2.git' // REPLACE WITH YOUR ACTUAL GIT REPO URL
-                }
+                    git branch: 'main', url: 'https://github.com/narendra-83/terraform.git'                }
             }
         }
 
