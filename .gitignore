@@ -1,2 +1,17 @@
+# Terraform files
 .terraform/
-.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraformrc
+crash.log
+override.tf
+override.tf.json
+*.tfvars.json
+.vscode/
+
+# My custom SSH key
+my-custom-ec2-key.pem
+
+# Terraform plan files
+*.tfplan
