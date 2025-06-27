@@ -1,7 +1,5 @@
 # Terraform files
 .terraform/
-*.tfstate
-*.tfstate.backup
 *.tfvars
 .terraformrc
 crash.log
