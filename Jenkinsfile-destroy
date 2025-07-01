@@ -1,0 +1,47 @@
+// Jenkinsfile-destroy
+// This pipeline is solely for destroying AWS infrastructure created by Terraform.
+// It runs 'terraform destroy -auto-approve' without manual confirmation.
+// USE WITH EXTREME CAUTION IN PRODUCTION ENVIRONMENTS.
+
+pipeline {
+    agent any // Or specify a specific Jenkins agent label, e.g., agent { label 'terraform-agent' }
+
+    environment {
+        AWS_REGION = 'us-east-1' // Ensure this matches your Terraform region
+        // Add AWS credentials if not using IAM Role on Jenkins agent (see previous explanations)
+    }
+
+    stages {
+        stage('Checkout Terraform Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/narendra-83/terraform.git' // <--- UPDATE TO YOUR REPO URL
+                echo "Terraform code checked out successfully."
+            }
+        }
+
+        stage('Terraform Init for Destroy') {
+            steps {
+                script {
+                    sh "terraform init" // Initializes Terraform, crucial for loading remote state
+                    echo "Terraform initialized for destruction."
+                }
+            }
+        }
+
+        stage('Terraform Destroy (Automated)') {
+            steps {
+                script {
+                    echo "Executing automated 'terraform destroy -auto-approve'..."
+                    sh "terraform destroy -auto-approve" // Deletes resources without confirmation
+                    echo "Terraform destroy completed."
+                }
+            }
+        }
+    }
+
+    post {
+        always { echo "Destroy pipeline finished." }
+        success { echo "Infrastructure successfully destroyed!" }
+        failure { echo "Infrastructure destruction FAILED! Check logs for errors." }
+    }
+}

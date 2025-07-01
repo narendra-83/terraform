@@ -1,15 +1,18 @@
 # Terraform files
 .terraform/
-*.tfvars
-.terraformrc
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
 crash.log
 override.tf
 override.tf.json
-*.tfvars.json
-.vscode/
+plan.out
 
-# My custom SSH key
-my-custom-ec2-key.pem
+# Editor swap files
+*.swp
+*.swo
 
-# Terraform plan files
-*.tfplan
+# SSH keys (CRITICAL - DO NOT COMMIT PRIVATE KEYS)
+*.pem
+*.key
+
